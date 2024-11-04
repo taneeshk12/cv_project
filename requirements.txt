@@ -1,0 +1,6 @@
+streamlit==1.17.0
+numpy==1.23.4
+opencv-python==4.6.0.66
+tensorflow==2.13.0
+firebase-admin==6.0.0
+Pillow==9.3.0
