@@ -60,7 +60,23 @@ model = load_model('../cv_project/license_plate_model.h5')
 
 # Load the cascade classifier for license plate detection
 plate_cascade = cv2.CascadeClassifier('../cv_project/indian_license_plate.xml')
+st.header("Add a New Record to Firebase")
 
+name = st.text_input("Enter Name")
+number = st.text_input("Enter Number")
+
+if st.button("Add to Firebase"):
+    if name and number:
+        db.collection("Number").add({
+            "Name": name,
+            "Number": number
+        })
+        st.success("Record added to Firebase!")
+    else:
+        st.warning("Please provide both Name and Number.")
+
+# Create a container for the webcam and image upload
+col1, col2 = st.columns(2)
 # Functions for license plate detection and character segmentation
 def detect_plate(img):
     plate_img = img.copy()
