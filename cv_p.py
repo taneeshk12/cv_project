@@ -11,9 +11,47 @@ from PIL import Image
 from io import BytesIO
 
 # Initialize Firebase
+# if not firebase_admin._apps:
+#     cred = credentials.Certificate("../cv_project/path.json")
+#     initialize_app(cred)
+from dotenv import load_dotenv
+import os,json
+
+# Load environment variables from .env
+load_dotenv()
+
+# Get credentials from .env
+firebase_credentials = os.getenv("FIREBASE_CREDENTIALS")
+
+# if firebase_credentials:
+#     # Parse the JSON string from .env
+#     cred = credentials.Certificate(json.loads(firebase_credentials))
+
+#     # Initialize Firebase if it hasn't been initialized yet
+#     if not firebase_admin._apps:
+#         initialize_app(cred)
+# else:
+#     print("Error: Firebase credentials not found in .env")
+import streamlit as st
+import firebase_admin
+from firebase_admin import credentials
+
+# Initialize Firebase app if it hasn't been initialized yet
 if not firebase_admin._apps:
-    cred = credentials.Certificate("../cv_project/path.json")
-    initialize_app(cred)
+    cred = credentials.Certificate({
+        "type": st.secrets["TYPE"],
+        "project_id": st.secrets["PROJECT_ID"],
+        "private_key_id": st.secrets["PRIVATE_KEY_ID"],
+        "private_key": st.secrets["PRIVATE_KEY"].replace("\\n", "\n"),
+        "client_email": st.secrets["CLIENT_EMAIL"],
+        "client_id": st.secrets["CLIENT_ID"],
+        "auth_uri": st.secrets["AUTH_URI"],
+        "token_uri": st.secrets["TOKEN_URI"],
+        "auth_provider_x509_cert_url": st.secrets["AUTH_PROVIDER_X509_CERT_URL"],
+        "client_x509_cert_url": st.secrets["CLIENT_X509_CERT_URL"]
+    })
+    firebase_admin.initialize_app(cred)
+
 
 db = firestore.client()
 
