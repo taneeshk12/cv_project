@@ -132,7 +132,7 @@ def show_results(characters):
     return ''.join(output)
 
 # Similarity check function for database lookup
-def find_match(predicted_text, threshold=1.0):
+def find_match(predicted_text, threshold=0.75):
     docs = db.collection("Number").get()
     best_match = None
     highest_score = 0
