@@ -5,3 +5,4 @@ tensorflow
 firebase-admin
 Pillow
 python-dotenv
+easyocr
