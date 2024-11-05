@@ -4,3 +4,4 @@ opencv-python-headless
 tensorflow
 firebase-admin
 Pillow
+python-dotenv
